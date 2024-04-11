@@ -6,6 +6,7 @@ from argparse import ArgumentParser, Namespace
 parser = ArgumentParser(description="Fallout Terminal -- select diffifculty level")
 parser.add_argument("-d", "--difficulty", metavar="difficulty", 
                     type=str, choices=["easy", "medium", "hard"],
+                    default="medium",
                     help="select difficulty level"
                     )
 
@@ -91,13 +92,11 @@ def main():
         if len(solution) != DIFFICULTY[user_difficulty][1]:
             print(f"Solution must be {DIFFICULTY[user_difficulty][1]} characters long")
         
-        
-        print(likeness(solution, password), "/", len(password), " likeness")
-        
         if guess(solution, password):
             print("Password Correct")
             break
         else: 
+            print(likeness(solution, password), "/", len(password), " likeness")
             attempt_count -= 1
 
 if __name__ == "__main__":
