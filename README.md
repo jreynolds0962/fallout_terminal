@@ -12,6 +12,6 @@ Creating a replica of the Fallout terminal will be both challenging and exciting
 
 ### Running Program
 As of right now, in it's simplest form you will run the program with
-''' 
+```
 python3 app/password_guess.py --difficulty {difficulty_level}
-'''
+```
