@@ -9,7 +9,6 @@ def type_writer(stdscr, y_axis: int, *args: str) -> None:
     """
     x_axis = 0
     for arg in args:
-        arg.strip()
         for char in arg:
             stdscr.addstr(y_axis, x_axis, char)
             stdscr.refresh()
