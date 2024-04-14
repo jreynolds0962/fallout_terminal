@@ -17,5 +17,8 @@
 
 5. If the selection is correct "let them in"
 6. If the selection is incorrect, lose 1 try and allow the user to select a word again
-7. Let the user select a word until all 3 uses are up
+    - Let the user select a word until all 3 uses are up
+    - Make it to where User can only guess the items in the list (if guess not in list, try again)
+    - Take out a guess from list if already tried that word
+    
 8. Add arguments to the cli command

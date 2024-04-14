@@ -1,5 +1,7 @@
 import curses
 from curses import wrapper
+from curses.textpad import Textbox
+
 import time
 
 def main(stdscr):
@@ -8,17 +10,27 @@ def main(stdscr):
     
     GREEN_AND_WHITE = curses.color_pair(1)
     RED_AND_BLACK = curses.color_pair(2)
+
+    x, y = 0, 0
     
-    pad = curses.newpad(75,75)
+    while True:
+        key = stdscr.getkey()
+        if key == "KEY_LEFT":
+            x -= 1
+        elif key == "KEY_RIGHT":
+            x += 1
+        elif key == "KEY_DOWN":
+            y+= 1
+        elif key == "KEY_UP":
+            y -= 1
+        stdscr.clear()
+        stdscr.addstr(y, x, "0")
+        stdscr.refresh()
+        
+    
+    key = stdscr.getkey()
+    stdscr.addstr(5,5, f"Key: {key}")
     stdscr.refresh()
-    
-    for i in range(100):
-        for j in range(26):
-            char = chr(67 + j)
-            pad.addstr(char, GREEN_AND_WHITE)
-    
-    pad.refresh(0, 0, 5, 5, 25, 75)
-    
     stdscr.getch()
 
 wrapper(main)

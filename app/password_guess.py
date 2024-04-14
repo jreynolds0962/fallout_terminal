@@ -1,8 +1,7 @@
 # import os
 import random
 import linecache
-import sys
-from time import sleep
+from Typewriter import type_writer
 from argparse import ArgumentParser, Namespace
 
 parser = ArgumentParser(description="Fallout Terminal -- select diffifculty level")
@@ -11,12 +10,15 @@ parser.add_argument("-d", "--difficulty", metavar="difficulty",
                     default="medium",
                     help="select difficulty level"
                     )
+POSSIBLE_PASSWORDS = random.randint(5,16)
 
-# first int is count of words displayed on screen, second int is count of letters in word
+# first element {int} is count of words displayed on screen
+# second element {int} is count of letters in word
+# third element {str} is word count file
 DIFFICULTY: dict[str, list] = {
-    "HARD": [7, 7, 'app/word_lists/seven_letters.txt'],
-    "MEDIUM": [6, 5, 'app/word_lists/five_letters.txt'],
-    "EASY": [5, 4, 'app/word_lists/four_letters.txt']
+    "HARD": [POSSIBLE_PASSWORDS, 7, 'app/word_lists/seven_letters.txt'],
+    "MEDIUM": [POSSIBLE_PASSWORDS, 5, 'app/word_lists/five_letters.txt'],
+    "EASY": [POSSIBLE_PASSWORDS, 4, 'app/word_lists/four_letters.txt']
 }
 
 def get_line_numbers(total_lines: int, amount_of_words: int) -> set:
@@ -64,14 +66,7 @@ def guess(solution: str, password: str) -> bool:
     if solution == password:
         return True
 
-def typing(phrase: str) -> None:
-    for char in phrase:
-        sleep(random.uniform(0.1,0.5))
-        sys.stdout.write(char)
-        sys.stdout.flush()
-
 def main():
-    
     parsed_args: Namespace = parser.parse_args()
     
     #cli difficulty argument
@@ -90,8 +85,9 @@ def main():
 
     password = random.choice(words)
 
+    
     while attempt_count > 0:
-        print(f"{attempt_count} attempt(s): {attempt_count * '*'}")
+        print(f"{attempt_count} ATTEMPT(S) LEFT: {attempt_count * '*'}")
         print("-" * 25)
         
         solution = input("Password Guess: ")
@@ -99,11 +95,13 @@ def main():
             print(f"Solution must be {DIFFICULTY[user_difficulty][1]} characters long")
         else:
             if guess(solution, password):
-                typing("Password Correct")
+                type_writer("Password Correct")
                 break
             else: 
-                print(likeness(solution, password), "/", len(password), " likeness")
+                print(likeness(solution, password), "/", len(password), " likeness \n \n")
                 attempt_count -= 1
+    if attempt_count == 0:
+        raise PermissionError("YOU HAVE BEEN LOCKED OUT")
 
 if __name__ == "__main__":
     main()
