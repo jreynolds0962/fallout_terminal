@@ -1,7 +1,7 @@
 # import os
 import random
 import linecache
-from Typewriter import type_writer
+from TypeWriter import type_writer
 from argparse import ArgumentParser, Namespace
 
 parser = ArgumentParser(description="Fallout Terminal -- select diffifculty level")
