@@ -1,7 +1,8 @@
 # import os
 import random
 import linecache
-from TypeWriter import type_writer
+import time
+import sys
 from argparse import ArgumentParser, Namespace
 
 parser = ArgumentParser(description="Fallout Terminal -- select diffifculty level")
@@ -65,6 +66,23 @@ def likeness(solution: str, password: str) -> int:
 def guess(solution: str, password: str) -> bool:
     if solution == password:
         return True
+
+def type_writer(*args: str) -> None:
+    """The function mimics a natural typing visual
+
+    Args:
+        *args (str): strings to be printed
+    """
+    for arg in args:
+        for char in arg:
+            sys.stdout.write(char)
+            sys.stdout.flush()
+
+            if char != "\n":
+                time.sleep(0.06)
+                
+            else:
+                time.sleep(0.01)
 
 def main():
     parsed_args: Namespace = parser.parse_args()

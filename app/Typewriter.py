@@ -13,10 +13,13 @@ def type_writer(stdscr, y_axis: int, *args: str) -> None:
         for char in arg:
             stdscr.addstr(y_axis, x_axis, char)
             stdscr.refresh()
+
             if char != "\n":
-                time.sleep(0.03)
+                time.sleep(0.06)
                 x_axis += 1
+                
             else:
-                time.sleep(0.2)
+                time.sleep(0.01)
                 y_axis += 1
                 x_axis = 0
+    # Maybe create typing sound
